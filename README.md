@@ -179,11 +179,41 @@ Example:
 <img width="1600" height="826" alt="image" src="https://github.com/user-attachments/assets/7648d7a5-33fb-40ed-9a8d-fdd6cc85f6a4" />
 
 
+📘 API Endpoints
+Auth
 
+POST /api/auth/register
+POST /api/auth/login
 
+Doctors
 
+POST /api/doctors
+GET /api/doctors
+GET /api/doctors/{id}
+DELETE /api/doctors/{id}
 
+Patients
 
+POST /api/patients
+GET /api/patients
+GET /api/patients/{id}
+DELETE /api/patients/{id}
+
+Appointments
+
+POST /api/appointments
+PUT /api/appointments/{id}
+DELETE /api/appointments/{id}
+GET /api/appointments/doctor/{id}
+GET /api/appointments/patient/{id}
+
+Analytics
+
+GET /api/analytics/summary
+
+Email
+
+GET /mail/test
 
 ---
 
