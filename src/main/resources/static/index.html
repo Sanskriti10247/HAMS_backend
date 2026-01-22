@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HAMS Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial;
+            background: #fff0f6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #ff4d8d, #ff85b3);
+            color: white;
+            padding: 18px 30px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 40px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(255,0,120,0.15);
+        }
+
+        h2 {
+            color: #ff4d8d;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 8px;
+            border: 1px solid #ffb3d1;
+            font-size: 14px;
+        }
+
+        button {
+            background: #ff4d8d;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            margin: 8px 10px 8px 0;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background: #e6005c;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(255,0,120,0.3);
+        }
+
+        pre {
+            background: #fff5fa;
+            padding: 20px;
+            border-radius: 8px;
+            max-height: 350px;
+            overflow: auto;
+            border: 1px solid #ffd6e8;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #ff4d8d;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    💖 Hospital Appointment Management System
+</div>
+
+<div class="container">
+
+    <div class="section">
+        <h2>Step 1: Paste JWT Token</h2>
+        <input id="token" placeholder="Paste your JWT token here" />
+    </div>
+
+    <div class="section">
+        <h2>Step 2: Load Data</h2>
+        <button onclick="loadDoctors()">Doctors</button>
+        <button onclick="loadPatients()">Patients</button>
+        <button onclick="getAnalytics()">Analytics</button>
+    </div>
+
+    <div class="section">
+        <h2>API Response</h2>
+        <pre id="result">Waiting for API call...</pre>
+    </div>
+
+</div>
+
+<div class="footer">
+    Built by Sanskriti 💕 Spring Boot Full Stack Demo
+</div>
+
+<script>
+    function getToken() {
+        return document.getElementById("token").value;
+    }
+
+    function loadDoctors() {
+        fetch("http://localhost:8080/api/doctors", {
+            headers: { "Authorization": "Bearer " + getToken() }
+        })
+            .then(res => res.json())
+            .then(data => show(data));
+    }
+
+    function loadPatients() {
+        fetch("http://localhost:8080/api/patients", {
+            headers: { "Authorization": "Bearer " + getToken() }
+        })
+            .then(res => res.json())
+            .then(data => show(data));
+    }
+
+    function getAnalytics() {
+        fetch("http://localhost:8080/api/analytics/summary", {
+            headers: { "Authorization": "Bearer " + getToken() }
+        })
+            .then(res => res.json())
+            .then(data => show(data));
+    }
+
+    function show(data) {
+        document.getElementById("result").innerText =
+            JSON.stringify(data, null, 2);
+    }
+</script>
+
+</body>
+</html>
